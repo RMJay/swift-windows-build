@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Toolchain" Language="1033" Version="0.0.0.0" Manufacturer="dt.compnerd.org" UpgradeCode="bed47738-52ef-4af7-a47b-b81cf238e0c8">
+    <Package Compressed="yes" InstallScope="perMachine" Manufacturer="dt.compnerd.org" Description="Toolchain" Comments="Copyright 2019 Saleem Abdulrasool &lt;compnerd@compnerd.org&gt;" />
+    <!--
+         NOTE(compnerd) use the pre-3.8 schema for better compatibility.  If we
+         are guaranteed WIX 3.8+ we could write this as:
+
+         <MediaTemplate EmbedCab="yes" />
+    -->
+    <Media Id="1" Cabinet="toolchain.cab" EmbedCab="yes" />
+
+    <!-- Directory Structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="WINDOWSVOLUME">
+        <Directory Id="LIBRARY" Name="Library">
+          <Directory Id="DEVELOPER" Name="Developer">
+            <Directory Id="TOOLCHAINS" Name="Toolchains">
+              <Directory Id="UNKNOWN_ASSERTS_DEVELOPMENT_XCTOOLCHAIN" Name="unknown-Asserts-development.xctoolchain">
+                <Directory Id="USR" Name="usr">
+                  <Directory Id="USR_BIN" Name="bin">
+                  </Directory>
+                  <Directory Id="USR_INCLUDE" Name="include">
+                    <Directory Id="USR_INCLUDE_CLANG_C" Name="clang-c">
+                    </Directory>
+                    <Directory Id="USR_INCLUDE_LLDB" Name="lldb">
+                    </Directory>
+                    <Directory Id="USR_INCLUDE_LLVM_C" Name="llvm-c">
+                    </Directory>
+                    <Directory Id="USR_INCLUDE_SOURCEKIT" Name="SourceKit">
+                    </Directory>
+                    <Directory Id="USR_INCLUDE_SWIFT" Name="swift">
+                      <Directory Id="USR_INCLUDE_SWIFT_SWIFT_REMOTE_MIRROR" Name="SwiftRemoteMirror">
+                      </Directory>
+                    </Directory>
+                  </Directory>
+                  <Directory Id="USR_LIB" Name="lib">
+                    <Directory Id="USR_LIB_CLANG" Name="clang">
+                      <Directory Id="USR_LIB_CLANG_7_0_0" Name="7.0.0">
+                        <Directory Id="USR_LIB_CLANG_7_0_0_INCLUDE" Name="include">
+                        </Directory>
+                      </Directory>
+                    </Directory>
+                  </Directory>
+                  <Directory Id="USR_LIBEXEC" Name="libexec">
+                  </Directory>
+                  <Directory Id="USR_SHARE" Name="share">
+                  </Directory>
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+    <SetDirectory Id="WINDOWSVOLUME" Value="[WindowsVolume]" />
+    <!-- Components -->
+    <DirectoryRef Id="USR_BIN">
+      <Component Id="TOOLCHAIN_BINS" Guid="fe60ec54-8e12-47c4-baed-b3834497d266">
+        <!--
+        <File Id="BLOCKSRUNTIME_DLL" Source="BlocksRuntime.dll" CHeckum="yes" />
+        -->
+        <File Id="CLANG_CL_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-cl.exe" Checksum="yes" />
+        <File Id="CLANG_CPP_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-cpp.exe" Checksum="yes" />
+        <File Id="CLANG_FORMAT_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-format.exe" Checksum="yes" />
+        <File Id="CLANG_OFFLOAD_BUNDLER_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-offload-bundler.exe" Checksum="yes" />
+        <File Id="CLANG_REFACTOR_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-refactor.exe" Checksum="yes" />
+        <File Id="CLANG_RENAME_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang-rename.exe" Checksum="yes" />
+        <File Id="CLANG_EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang.exe" Checksum="yes" />
+        <File Id="CLANG____EXE" Source="$(var.CLANG_BUILD_DIR)\bin\clang++.exe" Checksum="yes" />
+        <!--
+        <File Id="DISPATCH_DLL" Source="dispatch.dll" Checksum="yes" />
+        -->
+        <File Id="DSYMUTIL_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\dsymutil.exe" Checksum="yes" />
+        <!--
+        <File Id="GIT_CLANG_FORMAT" Source="$(var.LLVM_BUILD_DIR)\bin\git-clang-format" Checksum="yes" />
+        -->
+        <File Id="LIBCLANG_DLL" Source="$(var.CLANG_BUILD_DIR)\bin\libclang.dll" Checksum="yes" />
+        <!--
+        <File Id="LIBINDEXSTORE_DLL" Source="libIndexStore.dll" Checksum="yes" />
+        -->
+        <!--
+        <File Id="LIBLLDB_DLL" Source="liblldb.dll" Checksum="yes" />
+        <File Id="LLDB_ARGDUMPER_EXE" Source="lldb-argdumper.exe" Checksum="yes" />
+        <File Id="LLDB_MI_EXE" Source="lldb-mi.exe" Checksum="yes" />
+        <File Id="LLDB_EXE" Source="lldb.exe" Checksum="yes" />
+        -->
+        <File Id="LLVM_AR_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-ar.exe" Checksum="yes" />
+        <File Id="LLVM_COV_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-cov.exe" Checksum="yes" />
+        <File Id="LLVM_CVTRES_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-cvtres.exe" Checksum="yes" />
+        <File Id="LLVM_CXXFILT_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-cxxfilt.exe" Checksum="yes" />
+        <File Id="LLVM_DLLTOOL_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-dlltool.exe" Checksum="yes" />
+        <File Id="LLVM_DWP_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-dwp.exe" Checksum="yes" />
+        <File Id="LLVM_LIB_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-lib.exe" Checksum="yes" />
+        <File Id="LLVM_MT_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-mt.exe" Checksum="yes" />
+        <File Id="LLVM_NM_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-nm.exe" Checksum="yes" />
+        <File Id="LLVM_OBJDUMP_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-objdump.exe" Checksum="yes" />
+        <File Id="LLVM_PDBUTIL_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-pdbutil.exe" Checksum="yes" />
+        <File Id="LLVM_PROFDATA_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-profdata.exe" Checksum="yes" />
+        <File Id="LLVM_RANLIB_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-ranlib.exe" Checksum="yes" />
+        <File Id="LLVM_RC_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-rc.exe" Checksum="yes" />
+        <File Id="LLVM_READELF_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-readelf.exe" Checksum="yes" />
+        <File Id="LLVM_READOBJ_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-readobj.exe" Checksum="yes" />
+        <File Id="LLVM_SIZE_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-size.exe" Checksum="yes" />
+        <File Id="LLVM_SYMBOLIZER_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-symbolizer.exe" Checksum="yes" />
+        <File Id="LLVM_UNDNAME_EXE" Source="$(var.LLVM_BUILD_DIR)\bin\llvm-undname.exe" Checksum="yes" />
+        <File Id="LTO_DLL" Source="$(var.LLVM_BUILD_DIR)\bin\LTO.dll" Checksum="yes" />
+        <File Id="OPTREMARKS_DLL" Source="$(var.CLANG_BUILD_DIR)\bin\OptRemarks.dll" Checksum="yes" />
+        <File Id="SCAN_BUILD" Source="$(var.CLANG_BUILD_DIR)\bin\scan-build" Checksum="yes" />
+        <File Id="SCAN_BUILD_BAT" Source="$(var.CLANG_BUILD_DIR)\bin\scan-build.bat" Checksum="yes" />
+        <File Id="SCAN_VIEW" Source="$(var.CLANG_BUILD_DIR)\bin\scan-view" Checksum="yes" />
+        <!--
+        <File Id="SOURCEKITDINPROC_DLL" Source="sourcekitdInProc.dll" Checksum="yes" />
+        -->
+        <File Id="SWIFT_AUTOLINK_EXTRACT_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swift-autolink-extract.exe" Checksum="yes" />
+        <File Id="SWIFT_DEMANGLE_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swift-demangle.exe" Checksum="yes" />
+        <File Id="SWIFT_FORMAT_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swift-format.exe" Checksum="yes" />
+        <File Id="SWIFT_REFACTOR_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swift-refactor.exe" Checksum="yes" />
+        <File Id="SWIFT_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swift.exe" Checksum="yes" />
+        <File Id="SWIFTC_EXE" Source="$(var.SWIFT_BUILD_DIR)\bin\swiftc.exe" Checksum="yes" />
+        <File Id="SWIFTDEMANGLE_DLL" Source="$(var.SWIFT_BUILD_DIR)\bin\swiftDemangle.dll" Checksum="yes" />
+        <File Id="SWIFTREMOTEMIRROR_DLL" Source="$(var.SWIFT_BUILD_DIR)\bin\swiftRemoteMirror.dll" Checksum="yes" />
+        <!--
+        <File Id="SWIFTCORE_DLL" Source="swiftCore.dll" Checksum="yes" />
+        <File Id="SWIFTMSVCRT_DLL" Source="swiftMSVCRT.dll" Checksum="yes" />
+        <File Id="SWIFTSIMDOPERATORS_DLL" Source="swiftSIMDOperators.dll" Checksum="yes" />
+        <File Id="SWIFTSWIFTONONESUPPORT_DLL" Source="swiftSwiftOnoneSupport.dll" Checksum="yes" />
+        <File Id="SWIFTWINSDK_DLL" Source="swiftWinSDK.dll" Checksum="yes" />
+        -->
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="TOOLCHAIN">
+      <ComponentRef Id="TOOLCHAIN_BINS" />
+    </Feature>
+
+    <!-- UI -->
+    <UI />
+  </Product>
+</Wix>
